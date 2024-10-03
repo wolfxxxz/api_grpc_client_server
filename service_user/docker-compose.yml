@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:4.4.20-rc0
+    container_name: service-user-mongodb-password
+    ports:
+      - "27017:27017"
+    volumes:
+      - ${HOME}/collection_data/service_user_mongodb:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: test
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+#    restart: always
+
+  redis:
+    image: "redis:latest"
+    container_name: service-user-redis-hash
+    ports:
+      - "6379:6379"
+    volumes:
+      - ${HOME}/collection_data/service_user_redis:/data
+    command: redis-server --requirepass password --appendonly yes
+#    restart: always
+
+
